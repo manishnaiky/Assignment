@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Survey Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0f1eeb;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            margin: 20px 0;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        #popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        #popup-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .gen {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Survey Form</h1>
+        <form id="surveyForm">
+            <label for="firstName">First Name: &nbsp;<span style="color: red;">*</span></label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="lastName">Last Name: &nbsp;<span style="color: red;">*</span></label>
+            <input type="text" id="lastName" name="lastName" required>
+
+            <label for="dob">Date of Birth: &nbsp;<span style="color: red;">*</span></label>
+            <input type="date" id="dob" name="dob" required>
+
+            <label for="country">Country: &nbsp;<span style="color: red;">*</span></label>
+            <select id="country" name="country" required>
+                <option value="" disabled selected>Select a country</option>
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="UK">India</option>
+                <option value="UK">Srilanka</option>
+                <option value="UK">China</option>
+                <option value="UK">Pakistan</option>
+                <option value="UK">Russia</option>
+
+            </select>
+            <label>Gender: &nbsp;<span style="color: red;">*</span></label>
+            <div class="gen">
+                <input type="checkbox" id="male" name="gender" value="Male">
+                <label for="male">Male</label>
+            </div>
+            <div class="gen">
+                <input type="checkbox" id="female" name="gender" value="Female">
+                <label for="female">Female</label>
+            </div>
+            <div class="gen">
+                <input type="checkbox" id="other" name="gender" value="Other">
+                <label for="other">Other</label>
+            </div>
+
+            <label for="profession">Profession: &nbsp;<span style="color: red;">*</span></label>
+            <input type="text" id="profession" name="profession" required>
+
+            <label for="email">Email: &nbsp;<span style="color: red;">*</span></label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="mobile">Mobile Number: &nbsp;<span style="color: red;">*</span></label>
+            <input type="tel" id="mobile" name="mobile" required>
+
+        </form>
+        <div class="btn-container">
+            <button type="button" class="btn" onclick="showPopup()">Submit</button>
+            <button type="button" class="btn" onclick="resetForm()">Reset</button>
+
+        </div>
+    </div>
+
+    <div id="popup">
+        <div id="popup-content">
+            <h2>Form Submitted</h2>
+            <div id="popup-data"></div>
+            <button class="btn" onclick="closePopup()">Close</button>
+        </div>
+    </div>
+
+    <script>
+        function showPopup() {
+            const form = document.getElementById('surveyForm');
+            const popup = document.getElementById('popup');
+            const popupData = document.getElementById('popup-data');
+            if (form.checkValidity()) {
+                popupData.innerHTML = "";
+                for (const field of form.elements) {
+                    if (field.type !== "checkbox" || field.checked) {
+
+                        popupData.innerHTML += `<p><strong>${field.name}:</strong> ${field.value}</p>`;
+                    }
+                }
+                popup.style.display = "block";
+            }
+
+        }
+        closePopup()
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = "none";
+            document.getElementById('surveyForm').reset();
+        }
+
+        function resetForm() {
+            document.getElementById('surveyForm').reset();
+        }
+    </script>
+</body>
+
+</html>
